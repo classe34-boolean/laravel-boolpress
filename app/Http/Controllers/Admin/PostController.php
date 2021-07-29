@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
 use App\Category;
+use App\Tag;
 
 class PostController extends Controller
 {
     private $postValidationArray = [
         'title' => 'required|max:255',
         'content' => 'required',
-        'category_id' => 'nullable|exists:categories,id'
+        'category_id' => 'nullable|exists:categories,id',
+        'tags' => 'exists:tags,id'
     ];
 
     private function generateSlug($data) {
@@ -56,8 +58,9 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -82,6 +85,11 @@ class PostController extends Controller
         $newPost->fill($data); // aggiungiamo $fillable nel Model (Post)
 
         $newPost->save();
+
+        if(array_key_exists('tags', $data)) {
+            // $newPost->tags()->sync($data["tags"]);
+            $newPost->tags()->attach($data["tags"]);
+        }
 
         return redirect()->route('admin.posts.show', $newPost->id);
     }
@@ -109,14 +117,15 @@ class PostController extends Controller
     {
         // $post = Post::findOrFail($id);
         $categories = Category::all();
-
+        $tags = Tag::all();
         // versione estesa (alternativa al compact())    
         // [
         //     'post' => $post,
-        //     'categories' => $categories
+        //     'categories' => $categories,
+        //     'tags' => $tags 
         // ]
 
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -140,6 +149,13 @@ class PostController extends Controller
         }
 
         $post->update($data); // $fillable nel Model
+
+        if(array_key_exists('tags', $data)) {
+            $post->tags()->sync($data["tags"]);
+        } else {
+            // $post->tags->sync([]);
+            $post->tags()->detach();
+        }
 
         return redirect()->route('admin.posts.show', $post->id);
     }

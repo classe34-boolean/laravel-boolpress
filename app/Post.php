@@ -20,4 +20,9 @@ class Post extends Model
     public function category() {
         return $this->belongsTo('App\Category');
     }
+
+    // posts - tags
+    public function tags() {
+        return $this->belongsToMany('App\Tag');
+    }
 }
