@@ -22,8 +22,8 @@ console.log(teacher.coordinator.surname); --}}
             @endif
         </h1>
 
-        {{-- @dump($post->category())
-        @dump($post->category) --}}
+        {{-- @dump($post->category) --}}
+        {{-- @dump($post->category) --}}
 
         <small>{{ $post->slug }}</small>
 

@@ -45,7 +45,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        // $posts = Post::all();
+        $posts = Post::paginate(5);
 
         return view('admin.posts.index', compact('posts'));
     }
@@ -168,10 +169,13 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-       $post->delete();
+        // in alternativa alla onDelete('CASCADE') delle foreign key nella tabella pivot 
+        // $post->tags()->detach();
 
-       return redirect()
-        ->route('admin.posts.index')
-        ->with('deleted', $post->title);
+        $post->delete();
+
+        return redirect()
+            ->route('admin.posts.index')
+            ->with('deleted', $post->title);
     }
 }
