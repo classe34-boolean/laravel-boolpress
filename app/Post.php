@@ -13,6 +13,12 @@ class Post extends Model
         'content'
     ];
 
+    // EAGER LOADING su tutte le query
+    // protected $with = [
+    //     'category',
+    //     'tags'
+    // ];
+
     /**
      * Relazioni
      */
