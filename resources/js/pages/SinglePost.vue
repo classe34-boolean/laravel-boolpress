@@ -1,5 +1,5 @@
 <template>
-  <section class="my-5" v-if="!loading && post">
+  <section class="my-5" v-if="!loading && JSON.stringify(post) != '{}'">
       <h1>{{ post.title }}</h1>
 
         <div class="post-info my-3">
@@ -20,19 +20,19 @@
 
       <router-link class="btn btn-primary" :to="{ name: 'blog' }">Torna al Blog</router-link>
   </section>
-  <!-- <NotFound v-else-if="!post && !loading" /> -->
+  <NotFound v-else-if="JSON.stringify(post) == '{}' && !loading" />
   <Loader v-else />
 </template>
 
 <script>
 import Loader from '../components/Loader';
-// import NotFound from './NotFound';
+import NotFound from './NotFound';
 
 export default {
     name: 'SinglePost',
     components: {
         Loader,
-        // NotFound
+        NotFound
     },
     data: function() {
         return {

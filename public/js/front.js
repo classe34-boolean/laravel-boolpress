@@ -2255,6 +2255,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Loader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Loader */ "./resources/js/components/Loader.vue");
+/* harmony import */ var _NotFound__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NotFound */ "./resources/js/pages/NotFound.vue");
 //
 //
 //
@@ -2281,13 +2282,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
- // import NotFound from './NotFound';
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SinglePost',
   components: {
-    Loader: _components_Loader__WEBPACK_IMPORTED_MODULE_0__["default"] // NotFound
-
+    Loader: _components_Loader__WEBPACK_IMPORTED_MODULE_0__["default"],
+    NotFound: _NotFound__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -4177,7 +4178,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return !_vm.loading && _vm.post
+  return !_vm.loading && JSON.stringify(_vm.post) != "{}"
     ? _c(
         "section",
         { staticClass: "my-5" },
@@ -4228,6 +4229,8 @@ var render = function() {
         ],
         1
       )
+    : JSON.stringify(_vm.post) == "{}" && !_vm.loading
+    ? _c("NotFound")
     : _c("Loader")
 }
 var staticRenderFns = []
