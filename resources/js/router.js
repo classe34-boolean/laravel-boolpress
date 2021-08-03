@@ -11,6 +11,9 @@ import About from './pages/About';
 import Blog from './pages/Blog';
 import SinglePost from './pages/SinglePost';
 import NotFound from './pages/NotFound';
+import Category from './pages/Category';
+import Categories from './pages/Categories';
+import Tag from './pages/Tag';
 
 const router = new VueRouter({
     mode: 'history',
@@ -25,16 +28,31 @@ const router = new VueRouter({
             path: '/about',
             name: 'about',
             component: About 
-         },
+         },     
          {
             path: '/blog',
             name: 'blog',
             component: Blog 
          },
          {
+            path: '/blog/categories/list',
+            name: 'categories',
+            component: Categories
+         },
+         {
              path: '/blog/:slug',
              name: 'single-post',
              component: SinglePost
+         },
+         {
+            path: '/blog/category/:slug',
+            name: 'category',
+            component: Category
+         },
+         {
+            path: '/blog/tag/:slug',
+            name: 'tag',
+            component: Tag
          },
          {
             path: '*',

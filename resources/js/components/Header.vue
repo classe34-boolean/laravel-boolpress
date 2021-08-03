@@ -2,7 +2,8 @@
   <header>
       <nav>
           <ul>
-              <li>
+              <!-- <li :class="($route.name == 'home') ? 'active' : ''"> -->
+              <li>    
                     <!-- <a href="#" class="active">Home</a> -->
 
                     <!-- use router-link component for navigation. -->

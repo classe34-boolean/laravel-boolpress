@@ -1,18 +1,27 @@
 <template>
-  <section class="my-5" v-if="!loading && JSON.stringify(post) != '{}'">
+  <!-- <section class="my-5" v-if="!loading && JSON.stringify(post) != '{}'"> -->
+    <section class="my-5" v-if="!loading">
       <h1>{{ post.title }}</h1>
 
         <div class="post-info my-3">
-            <h4 v-if="post.category">
-                <span class="badge badge-primary">{{ post.category.name }}</span>
-            </h4>
+            <div class="h4" v-if="post.category">
+                <router-link class="badge badge-primary" :to="{ name: 'category', params: { slug: post.category.slug } }">{{ post.category.name }}</router-link>
+            </div>
             <div class="h5" v-if="post.tags.length > 0">
-                <span 
+                <!-- <span 
                     v-for="tag in post.tags"
                     :key="`tag-${tag.id}`"
                     class="badge badge-pills badge-info mr-2">
                 {{ tag.name }}
-                </span>
+                </span> -->
+
+                <router-link
+                    class="badge badge-pills badge-info mr-2"
+                    v-for="tag in post.tags"
+                    :key="`tag-${tag.id}`"
+                    :to="{ name: 'tag', params: { slug: tag.slug } }"
+                >{{ tag.name }}
+                </router-link>
             </div>
         </div>
 
@@ -20,19 +29,19 @@
 
       <router-link class="btn btn-primary" :to="{ name: 'blog' }">Torna al Blog</router-link>
   </section>
-  <NotFound v-else-if="JSON.stringify(post) == '{}' && !loading" />
+  <!-- <NotFound v-else-if="JSON.stringify(post) == '{}' && !loading" /> -->
   <Loader v-else />
 </template>
 
 <script>
 import Loader from '../components/Loader';
-import NotFound from './NotFound';
+// import NotFound from './NotFound';
 
 export default {
     name: 'SinglePost',
     components: {
         Loader,
-        NotFound
+        // NotFound
     },
     data: function() {
         return {
@@ -49,8 +58,13 @@ export default {
                 .get(`http://127.0.0.1:8000/api/posts/${slug}`)
                 .then(
                     res => {
-                        this.post = res.data;
-                        this.loading = false;
+                        // if(JSON.stringify(res.data) == '{}') {
+                        if(Object.keys(res.data).length == 0){    
+                           this.$router.push({ name: 'not-found' });     
+                        } else {
+                            this.post = res.data;
+                            this.loading = false;
+                        }              
                     }
                 )
                 .catch(
