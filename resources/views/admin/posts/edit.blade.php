@@ -4,7 +4,7 @@
     <div class="container">
         <h1 class="my-4">Modifica l'articolo: <span class="text-info">{{ $post->title }}</span></h1>
         
-        <form action="{{ route('admin.posts.update', $post->id) }}" method="POST">
+        <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="form-group">
@@ -21,6 +21,24 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
+
+            {{-- file upload --}}
+            <div class="form-group">
+                <label for="cover">Immagine di copertina</label>
+
+                @if ($post->cover)
+                    <div class="mb-3">
+                        <img style="width: 200px" src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}"> 
+                    </div>
+                @endif
+
+                <input type="file" name="cover" class="form-control-file @error('cover') is-invalid @enderror" id="cover">
+                @error('cover')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            {{-- /file upload --}}
+
             <div class="form-group">
                 <label for="category_id">Categoria</label>
                 <select class="form-control @error('category_id') is-invalid @enderror" name="category_id" id="category_id">
@@ -36,7 +54,7 @@
                 @enderror
             </div>
 
-            @dump($post->tags)
+            {{-- @dump($post->tags) --}}
 
             {{-- tags --}}
             <div class="form-group mb-5">

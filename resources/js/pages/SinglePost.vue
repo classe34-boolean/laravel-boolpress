@@ -1,7 +1,7 @@
 <template>
   <!-- <section class="my-5" v-if="!loading && JSON.stringify(post) != '{}'"> -->
     <section class="my-5" v-if="!loading">
-      <h1>{{ post.title }}</h1>
+        <h1>{{ post.title }}</h1>
 
         <div class="post-info my-3">
             <div class="h4" v-if="post.category">
@@ -25,9 +25,11 @@
             </div>
         </div>
 
-      <p class="my-4">{{ post.content }}</p>
+        <img class="img-fluid" :src="post.cover" :alt="post.title">
 
-      <router-link class="btn btn-primary" :to="{ name: 'blog' }">Torna al Blog</router-link>
+        <p class="my-4">{{ post.content }}</p>
+
+        <router-link class="btn btn-primary" :to="{ name: 'blog' }">Torna al Blog</router-link>
   </section>
   <!-- <NotFound v-else-if="JSON.stringify(post) == '{}' && !loading" /> -->
   <Loader v-else />

@@ -1959,6 +1959,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Card',
   props: {
@@ -2370,6 +2371,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Loader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Loader */ "./resources/js/components/Loader.vue");
+//
+//
 //
 //
 //
@@ -3910,6 +3913,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col-4 my-3 d-flex" }, [
     _c("div", { staticClass: "card w-100" }, [
+      _c("img", {
+        staticClass: "card-img-top",
+        attrs: { src: _vm.item.cover, alt: _vm.item.title }
+      }),
+      _vm._v(" "),
       _c(
         "div",
         { staticClass: "card-body" },
@@ -4688,6 +4696,11 @@ var render = function() {
                 )
               : _vm._e()
           ]),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "img-fluid",
+            attrs: { src: _vm.post.cover, alt: _vm.post.title }
+          }),
           _vm._v(" "),
           _c("p", { staticClass: "my-4" }, [_vm._v(_vm._s(_vm.post.content))]),
           _vm._v(" "),

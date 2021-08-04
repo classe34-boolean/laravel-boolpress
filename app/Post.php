@@ -10,7 +10,8 @@ class Post extends Model
         'category_id',
         'title',
         'slug',
-        'content'
+        'content',
+        'cover'
     ];
 
     // EAGER LOADING su tutte le query
