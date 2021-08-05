@@ -51,6 +51,8 @@ Route::namespace('Api')
 
         Route::get('categories', 'CategoryController@index');
 
+        // form di contatto
+        Route::post('leads', 'LeadController@store');
     });
 
 
